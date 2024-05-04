@@ -94,7 +94,7 @@ nav ul li a:hover {
 
 .legend {
     position: fixed;
-    top: 52%;
+    top: 45%;
     right: 30%;
     transform: translateY(-50%); /* Adjust vertical alignment */
     display: flex;
@@ -123,29 +123,44 @@ nav ul li a:hover {
 .sold-out { background-color: red; }
 .my-seat { background-color: lightblue; }
 
-.TextField {
-    position: fixed;
-    bottom: 59px; /* Adjust the distance from the bottom */
-    left: 67%; /* Position horizontally at the center */
-    transform: translateX(-50%); /* Center horizontally */
-    display: flex;
-    flex-direction: column; /* Arrange items vertically */
-    align-items: center; /* Align items at the center horizontally */
+
+label[for="Number-of-seats"] {
+    position: fixed; /* Change to fixed */
+    top: 540px; /* Adjust top position as needed */
+    left: 850px;
+} 
+
+label[for="Total-cost"] {
+    position: fixed; /* Change to fixed */
+    top: 540px; /* Adjust top position as needed */
+    left: 1080px;
+} 
+
+.cost {
+    /* Date input specific styles */
+    width: 200px;
+    height: 28px;
+    position: fixed; /* Change to fixed */
+    top: 560px; /* Adjust top position as needed */
+    left: 1080px;
+}
+.seat {
+    /* Date input specific styles */
+    width: 200px;
+    height: 28px;
+    position: fixed; /* Change to fixed */
+    top: 560px; /* Adjust top position as needed */
+    left: 850px;
 }
 
-.TextField input {
-    width: 200px; /* Adjust the width of the input fields */
-    height: 28px; /* Adjust the height of the input fields */
-    margin-bottom: 20px; /* Add some space between the text fields */
-}
 
 .date-input {
     /* Date input specific styles */
     width: 200px;
     height: 28px;
     position: fixed; /* Change to fixed */
-    top: 480px; /* Adjust top position as needed */
-    left: 1000px;
+    top: 500px; /* Adjust top position as needed */
+    left: 1080px;
 }
 
 .time-input {
@@ -153,34 +168,34 @@ nav ul li a:hover {
     width: 200px;
     height: 28px;
     position: fixed; /* Change to fixed */
-    top: 534px; /* Adjust top position as needed */
-    left: 1000px;
+    top: 500px; /* Adjust top position as needed */
+    left: 850px;
 }
 
 label[for="date"] {
     position: fixed; /* Change to fixed */
-    top: 460px; /* Adjust top position as needed */
-    left: 1030px;
-}
+    top: 480px; /* Adjust top position as needed */
+    left: 1080px;
+} 
 
 label[for="time"] {
     position: fixed; /* Change to fixed */
-    top: 517px; /* Adjust top position as needed */
-    left: 1031px; /* Move the labels up by 50 pixels */
+    top: 480px; /* Adjust top position as needed */
+    left: 850px; /* Move the labels up by 50 pixels */
 }
 
 /* Additional styling for the button */
 .reservation-form button {
     height: 34px; /* Adjust button height */
     position: fixed; /* Change to fixed */
-    top: 585px; /* Adjust top position as needed */
+    top: 600px; /* Adjust top position as needed */
     left: 990px;
     cursor: pointer;
 }
 
 
 .reservation-form {
-    width: 540px; /* Adjust as needed */
+    width: 600px; /* Adjust as needed */
     position: fixed; /* Change to fixed */
     top: 170px; /* Adjust top position as needed */
     
@@ -198,4 +213,5 @@ label[for="time"] {
 
 body {
     overflow: hidden; /* Remove scrollbar */
-}
+} 
+

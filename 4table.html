@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Table Booking</title>
-    <link rel="stylesheet" href="4table.css">
+    <link rel="stylesheet" href="2table.css">
 </head>
 <body>
+    <!-- Existing header and navigation code -->
     <header>
         <div class="container">
-            <a href="Mainpage.html"class="logo-link">
+            <a href="Mainpage.html" class="logo-link">
                 <h1>One Byte Foods</h1>
             </a>
             <nav>
@@ -21,63 +22,60 @@
             </nav>
         </div>
     </header>
+
     <div class="booking-container">
         <h1>Select Your Table for 4</h1>
-        <!-- First column -->
-        <div class="column">
-            <div class="table-box">Table 1</div>
-            <div class="table-box">Table 2</div>
-            <div class="table-box">Table 3</div>
-            <div class="table-box">Table 4</div>
-            <div class="table-box">Table 5</div>
+        <!-- Table selection area -->
+        <div class="table-selection">
+            <!-- First column -->
+            <div class="column">
+                <div class="table-box">Table 1</div>
+                <div class="table-box">Table 2</div>
+                <div class="table-box">Table 3</div>
+                <div class="table-box">Table 4</div>
+                <div class="table-box">Table 5</div>
+            </div>
+            <!-- Second column -->
+            <div class="column1">
+                <div class="table-box">Table 6</div>
+                <div class="table-box">Table 7</div>
+                <div class="table-box">Table 8</div>
+                <div class="table-box">Table 9</div>
+                <div class="table-box">Table 10</div>
+            </div>
         </div>
-        <!-- Second column -->
-        <div class="column1">
-            <div class="table-box">Table 6</div>
-            <div class="table-box">Table 7</div>
-            <div class="table-box">Table 8</div>
-            <div class="table-box">Table 9</div>
-            <div class="table-box">Table 10</div>
+
+        <!-- Legend for table status -->
+        <div class="legend">
+            <div><span class="dot unavailable"></span>Unavailable</div>
+            <div><span class="dot sold-out"></span>Sold Out</div>
+            <div><span class="dot available"></span>Available</div>
+            <div><span class="dot my-seat"></span>My Seat</div>
+            <div><span class="dot reserved"></span>Reserved</div>
         </div>
+
+        <div class="TextField">
+            
+        </div>
+
+        <form class="reservation-form">
+            <!-- Form fields for reservation details -->
+            <label for="date"><b>Select Date:</b></label>
+            <input type="date" id="date" name="date" required class="date-input">
+        
+            <label for="time"><b>Select Time:</b></label>
+            <input type="time" id="time" name="time" required class="time-input">
+
+            <label for="Number-of-seats"><b>Number of Seats:</b></label>
+            <input type="text" placeholder="Number of Seats" id="seats" name="seats" required class="seat">
+
+            <label for="Total-cost"><b>Total Cost:</b></label>
+            <input type="text" placeholder="Total Cost" id="cost" name="cost" required class="cost">
+        
+            <button type="submit">Reserve Table</button>
+        </form>
+        
     </div>
-
-    <div class="legend">
-        <div><span class="dot unavailable"></span>Unavailable</div>
-        <div><span class="dot sold-out"></span>Sold Out</div>
-        <div><span class="dot available"></span>Available</div>
-        <div><span class="dot my-seat"></span>My Seat</div>
-        <div><span class="dot reserved"></span>Reserved</div>
-    </div>
-
-    <div class="TextField">
-        <input type="text" placeholder="Number of Seats" id="seats" required>
-        <input type="text" placeholder="Total Cost" id="cost" required>
-    </div>
-
-    <form class="reservation-form">
-        <!-- Form fields for reservation details -->
-        <label for="date"><b>Select Date:</b></label>
-        <input type="date" id="date" name="date" required class="date-input">
     
-        <label for="time"><b>Select Time:</b></label>
-        <input type="time" id="time" name="time" required class="time-input">
-    
-        <button type="submit">Reserve Table</button>
-    </form>
-
-    <form class="buy-form">
-        <label for="date"><b>Select Date:</b></label>
-        <input type="date" id="date" name="date" required class="date-input">
-    
-        <label for="time"><b>Select Time:</b></label>
-        <input type="time" id="time" name="time" required class="time-input">   
-        <button type="submit">Buy Table</button>
-    </form>
 </body>
 </html>
-
-
-
-
-
-
