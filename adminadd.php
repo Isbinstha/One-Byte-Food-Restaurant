@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="login.css">
-    <title>Sign Up</title>
-    <script>
+    <title>New Admin</title>
+    <!-- <script>
         function validateForm() {
             var email = document.getElementById("email").value;
             if (email.indexOf("@admin.com") == -1) {
@@ -14,12 +14,12 @@
             }
             return true;
         }
-    </script>
+    </script> -->
 </head>
 <body>
     <div class="container">
         
-        <h1>Sign Up</h1>
+        <h1>New Admin</h1>
         <form id="signup-form" method="post" action="adminadd.php" onsubmit="return validateForm();">
             <p><b>Name :</b></p><input type="text" placeholder="Username" name="username" id="username" required>
             <p><b>Email :</b></p><input type="email" placeholder="Email" name="email" id="email" required>

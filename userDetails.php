@@ -1,24 +1,12 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>One Byte Foods</title>
-    <link rel="stylesheet" href="userDetails.css">
-</head>
-<body>
-    <header>
-        <div class="container">
-            <h1>User Details</h1>
-            <nav>
-                <ul>
-                </ul>
-            </nav>
-        </div>
-    </header>
-</body>
-</html> -->
-
+<?php
+// Connect to database
+$conn = new mysqli("localhost", "root", "", "users");
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+$sql = "SELECT ID, Name, Email, Phone_Number FROM signup";
+$result = $conn->query($sql);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,17 +20,15 @@
             border-collapse: collapse;
             width: 100%;
         }
-
         th, td {
             border: 1px solid #333; 
             padding: 5px;
             text-align: left;
         }
-
         th {
             background-color: #f2f2f2;
         }
-        tr{
+        tr {
             background-color: #f2f2f2;
         }
     </style>
@@ -50,7 +36,7 @@
 <body>
     <header>
         <div class="container">
-            <a href="adminMainpage.php" class="logo-link">
+            <a href="adminMainpage.html" class="logo-link">
                 <h1>One Byte Foods</h1>
             </a>
             <nav>
@@ -62,7 +48,6 @@
         </div>
     </header>
     <h2>Customers</h2>
-
     <div class="container">
         <table>
             <tr>
@@ -72,13 +57,6 @@
                 <th>Phone</th>
             </tr>
             <?php
-            // Connect to database
-            $conn = new mysqli("localhost", "root", "", "users");
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
-            $sql = "SELECT ID,Name, Email, Phone_Number FROM signup";
-            $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
                     echo "<tr><td>".$row["ID"]."</td><td>".$row["Name"]."</td><td>".$row["Email"]."</td><td>".$row["Phone_Number"]."</td></tr>";
@@ -86,7 +64,6 @@
             } else {
                 echo "<tr><td colspan='2'>0 results</td></tr>";
             }
-
             $conn->close();
             ?>
         </table>

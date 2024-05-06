@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $db_pass = $row['Password']; // Retrieve password from database
         if ($pass === $db_pass) {
             // Password is correct, redirect to home page
-            header('Location: adminMainpage.php');
+            header('Location: adminMainpage.html');
             exit;
         } else {
             // Password is incorrect
