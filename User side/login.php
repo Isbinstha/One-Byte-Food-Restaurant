@@ -53,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
         
         <p><b>Don't have an account?</b> <a href="signup.php"><b>Sign Up</b></a></p>
+        <p><b>Login as:</b> <a href="http://localhost/One%20Byte%20Food%20Restaurant/Admin%20side/adminlogin.php"><b>Admin</b></a></p>
     </div>
 </body>
 </html>

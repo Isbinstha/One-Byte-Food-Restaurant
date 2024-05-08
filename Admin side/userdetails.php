@@ -41,8 +41,10 @@ $result = $conn->query($sql);
             </a>
             <nav>
                 <ul>
-                    <li><a href="Customers.php" class="active">Customers</a></li>
-                    <li><a href="login.html">Login</a></li>
+                    <li><a href="adminBooking.php"><b>Bookings</b></a></li>
+                    <li><a href="http://localhost/One%20Byte%20Food%20Restaurant/Admin%20side/userDetails.php"><b>User Details</b></a></li>
+                    <li><a href="Tables.php"><b>Tables</b></a></li>
+                    <li><a href="feedback.php"><b>Feedbacks</b></a></li>
                 </ul>
             </nav>
         </div>

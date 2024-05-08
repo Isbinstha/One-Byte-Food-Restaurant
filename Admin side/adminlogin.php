@@ -5,20 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="login.css">
     <title>Login</title>
-    <script>
-        function validateForm() {
-            var email = document.getElementById("email").value;
-            if (email.indexOf("@admin.com") == -1) {
-                alert("Please enter a valid admin email address.");
-                return false;
-            }
-            return true;
+    
+    <style>
+        /* CSS for the table border */
+        table {
+            border-collapse: collapse;
+            width: 100%;
         }
-    </script>
+        th, td {
+            border: 1px solid #333; 
+            padding: 5px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Login</h1>
+        <h1>Admin Login</h1>
         <form id="login-form" method="post" action="adminlogin.php">
             <p><b>Email :</b></p> <input type="text" placeholder="Email" name="Email" required>
             <p><b>Password :</b></p><input type="password" placeholder="Password" name="password" required>

@@ -13,16 +13,12 @@
 }
 
 .column {
-    padding-left: 230px;
+    padding-left: 50px;
     float: left; /* Float the columns to the left */
     margin-right: 10px; /* Adjust spacing between columns */
 }
 
-.column1 {
-    padding-left: 30px;
-    float: left; /* Float the columns to the left */
-    margin-right: 10px; /* Adjust spacing between columns */
-}
+
 
 .table-box {
     width: 180px;
@@ -94,13 +90,13 @@ nav ul li a:hover {
 
 .legend {
     position: fixed;
-    top: 45%;
+    top: 50%;
     right: 30%;
     transform: translateY(-50%); /* Adjust vertical alignment */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 10px;
+    
 }
 
 .legend div {
@@ -214,4 +210,8 @@ label[for="time"] {
 body {
     overflow: hidden; /* Remove scrollbar */
 } 
-
+ 
+.table-selection{
+    width: 50%;
+    top:50%;
+}

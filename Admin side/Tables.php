@@ -3,29 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Table Booking</title>
-    <link rel="stylesheet" href="2table.css">
+    <title>One Byte Foods</title>
+    <link rel="stylesheet" href="tables.css">
+    <style>
+        /* CSS for the table border */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #333; 
+            padding: 5px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-    <!-- Existing header and navigation code -->
+    
     <header>
+        
         <div class="container">
-            <a href="Mainpage.html"class="logo-link">
+            <a href="adminMainpage.html">
                 <h1>One Byte Foods</h1>
             </a>
             <nav>
                 <ul>
-                    <li><a href="booking.html" class="active">Bookings</a></li>
-                    <li><a href="contactUS.html">Contact Us</a></li>
-                    <li><a href="login.html">Login</a></li>
+                    <li><a href="adminBooking.php"><b>Bookings</b></a></li>
+                    <li><a href="http://localhost/One%20Byte%20Food%20Restaurant/Admin%20side/userDetails.php"><b>User Details</b></a></li>
+                    <li><a href="Tables.php"><b>Tables</b></a></li>
+                    <li><a href="feedback.php"><b>Feedbacks</b></a></li>
                 </ul>
             </nav>
         </div>
+        
     </header>
-
+    
     <div class="booking-container">
-        <h1>Select Your Table for 6 or more</h1>
-        <!-- Table selection area -->
         <div class="table-selection">
             <!-- First column -->
             <div class="column">
@@ -53,32 +72,9 @@
             <div><span class="dot my-seat"></span>My Seat</div>
             <div><span class="dot reserved"></span>Reserved</div>
         </div>
-
-        <div class="TextField">
-            
-        </div>
-
-        <form class="reservation-form">
-            <!-- Form fields for reservation details -->
-            <label for="date"><b>Select Date:</b></label>
-            <input type="date" id="date" name="date" required class="date-input">
         
-            <label for="time"><b>Select Time:</b></label>
-            <input type="time" id="time" name="time" required class="time-input">
-
-            <label for="Number-of-seats"><b>Number of Seats:</b></label>
-            <input type="text" placeholder="Number of Seats" id="seats" name="seats" required class="seat">
-
-            <label for="Total-cost"><b>Total Cost:</b></label>
-            <input type="text" placeholder="Total Cost" id="cost" name="cost" required class="cost">
-        
-            <button type="submit">Reserve Table</button>
-        </form>
-        
-        </div>
     </div>
-
-    <!-- Existing scripts -->
-    <!-- ... -->
+        
+    
 </body>
 </html>
