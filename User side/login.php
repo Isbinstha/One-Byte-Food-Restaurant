@@ -1,6 +1,6 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $conn = mysqli_connect("localhost", "root", "", "users");
+    $conn = mysqli_connect("localhost", "root", "", "one_byte_foods");
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }

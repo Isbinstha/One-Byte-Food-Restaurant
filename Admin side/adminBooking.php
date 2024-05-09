@@ -44,6 +44,30 @@
     </header>
 
     <div class="booking-container">
+        <?php
+        $servername = "localhost";
+        $username = "root"; // Replace with your MySQL username
+        $password = ""; // Replace with your MySQL password
+        $database = "one_byte_foods"; // Replace with your database name
+        $conn = new mysqli($servername, $username, $password, $database);
+
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        // Update table availability if form is submitted
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $tableId = $_POST["TableID"];
+            $newAvailability = $_POST["Availability"];
+
+            $sql = "UPDATE tables SET Availability='$newAvailability' WHERE TableID='$tableId'";
+            if ($conn->query($sql) === TRUE) {
+                echo "Table availability updated successfully.";
+            } else {
+                echo "Error updating table availability: " . $conn->error;
+            }
+        }
+        ?>
     
         <div class="table-selection">
             <?php
@@ -51,7 +75,7 @@
             $servername = "localhost";
             $username = "root"; // Replace with your MySQL username
             $password = ""; // Replace with your MySQL password
-            $database = "users"; // Replace with your database name
+            $database = "one_byte_foods"; // Replace with your database name
             $conn = new mysqli($servername, $username, $password, $database);
 
             // Check connection
@@ -83,6 +107,20 @@
                     echo '<div class="column">';
                     // Add the class to the table-box
                     echo '<div class="table-box ' . $status_class . '">' . $row["TableName"] . '</div>';
+
+                    // Form to update availability
+                    echo '<form method="post">';
+                    echo '<input type="hidden" name="TableID" value="' . $row["TableID"] . '">';
+                    echo '<select name="Availability' . $row["TableID"] . '">';
+                    echo '<option value="unavailable">Unavailable</option>';
+                    echo '<option value="sold-out">Sold Out</option>';
+                    echo '<option value="available">Available</option>';
+                    echo '<option value="my-seat">My Seat</option>';
+                    echo '<option value="reserved">Reserved</option>';
+                    echo '</select>';
+                    echo '<input type="submit" value="Update">';
+                    echo '</form>';
+
                     echo '</div>';
                 }
             } else {
@@ -101,9 +139,6 @@
             <div><span class="dot reserved"></span>Reserved</div>
         </div>
 
-        
-
-       
     </div>
 </body>
 </html>

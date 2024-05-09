@@ -14,8 +14,8 @@
             </a>
             <nav>
                 <ul>
-                    <li><a href="booking.html" class="active">Bookings</a></li>
-                    <li><a href="contactUS.html">Contact Us</a></li>
+                    <li><a href="booking.php" class="active">Bookings</a></li>
+                    <li><a href="contactUS.php">Contact Us</a></li>
                     <li><a href="http://localhost/One%20Byte%20Food%20Restaurant/User%20side/login.php">Login</a></li>
                 </ul>
             </nav>

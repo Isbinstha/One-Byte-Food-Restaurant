@@ -32,7 +32,7 @@
             $servername = "localhost";
             $username = "root"; // Replace with your MySQL username
             $password = ""; // Replace with your MySQL password
-            $database = "users"; // Replace with your database name
+            $database = "one_byte_foods"; // Replace with your database name
             $conn = new mysqli($servername, $username, $password, $database);
 
             // Check connection

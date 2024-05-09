@@ -1,6 +1,6 @@
 <?php
 // Connect to database
-$conn = new mysqli("localhost", "root", "", "users");
+$conn = new mysqli("localhost", "root", "", "one_byte_foods");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -13,7 +13,7 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customers</title>
-    <link rel="stylesheet" href="booking.css">
+    <link rel="stylesheet" href="userdetails.css">
     <style>
         /* CSS for the table border */
         table {

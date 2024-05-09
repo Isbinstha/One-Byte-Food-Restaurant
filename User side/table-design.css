@@ -46,6 +46,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../bgi.jpg");
 }
 
 header {

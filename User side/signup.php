@@ -35,7 +35,7 @@
         </form>
     </div>       
 <?php
-$conn = mysqli_connect("localhost", "root", "", "users");
+$conn = mysqli_connect("localhost", "root", "", "one_byte_foods");
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }

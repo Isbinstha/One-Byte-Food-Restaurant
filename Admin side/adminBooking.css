@@ -39,10 +39,12 @@
 }
 
 /* styles.css */
-body {
+/* body {
     margin: 0;
-    font-family: Arial, sans-serif;
-}
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../bgi.jpg");
+    margin: 0; 
+    padding: 0; 
+} */
 
 header {
     background-color: #333;
@@ -211,7 +213,25 @@ body {
     overflow: hidden; /* Remove scrollbar */
 } 
  
+
+
+.booking-container{
+    width:100%;
+}
+
 .table-selection{
-    width: 50%;
-    top:50%;
+    margin-top: 3%;
+    width:50%;
+    margin-left: 5%;
+}
+
+.Booking-detail{
+    margin-top: 3%;
+    width:50%;
+    padding-left: 30%;
+}
+
+/*Bug to be solve for tsk-2*/
+.legend{
+    padding-left: 400px;
 }

@@ -37,7 +37,7 @@
 
     <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $conn = mysqli_connect("localhost", "root", "", "users");
+    $conn = mysqli_connect("localhost", "root", "", "one_byte_foods");
 
     // Check connection
     if ($conn->connect_error) {
