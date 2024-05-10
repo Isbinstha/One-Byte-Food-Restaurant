@@ -58,7 +58,7 @@
         // Update table availability if form is submitted
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $tableId = $_POST["TableID"];
-            $newAvailability = $_POST["Availability"];
+            $newAvailability = $_POST["Availability" . $tableId]; // Corrected here
 
             $sql = "UPDATE tables SET Availability='$newAvailability' WHERE TableID='$tableId'";
             if ($conn->query($sql) === TRUE) {
@@ -111,7 +111,7 @@
                     // Form to update availability
                     echo '<form method="post">';
                     echo '<input type="hidden" name="TableID" value="' . $row["TableID"] . '">';
-                    echo '<select name="Availability' . $row["TableID"] . '">';
+                    echo '<select name="Availability' . $row["TableID"] . '">'; // Corrected here
                     echo '<option value="unavailable">Unavailable</option>';
                     echo '<option value="sold-out">Sold Out</option>';
                     echo '<option value="available">Available</option>';

@@ -4,9 +4,22 @@ $conn = new mysqli("localhost", "root", "", "one_byte_foods");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
+// Delete user if requested
+if(isset($_GET['delete_id'])) {
+    $delete_id = $_GET['delete_id'];
+    $delete_sql = "DELETE FROM signup WHERE ID='$delete_id'";
+    if ($conn->query($delete_sql) === TRUE) {
+        echo "Record deleted successfully.";
+    } else {
+        echo "Error deleting record: " . $conn->error;
+    }
+}
+
 $sql = "SELECT ID, Name, Email, Phone_Number FROM signup";
 $result = $conn->query($sql);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,12 +44,14 @@ $result = $conn->query($sql);
         tr {
             background-color: #f2f2f2;
         }
+        
+        
     </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <a href="adminMainpage.html" class="logo-link">
+        <a href="adminMainpage.html" class="logo-link">
                 <h1>One Byte Foods</h1>
             </a>
             <nav>
@@ -57,14 +72,25 @@ $result = $conn->query($sql);
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
+                <th>Action</th>
             </tr>
             <?php
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
-                    echo "<tr><td>".$row["ID"]."</td><td>".$row["Name"]."</td><td>".$row["Email"]."</td><td>".$row["Phone_Number"]."</td></tr>";
+                    echo "<tr>
+                            <td>".$row["ID"]."</td>
+                            <td>".$row["Name"]."</td>
+                            <td>".$row["Email"]."</td>
+                            <td>".$row["Phone_Number"]."</td>
+                            <td>
+                                <form method='post' style='display:inline;'>
+                                    <button type='submit' formaction='userDetails.php?delete_id=".$row["ID"]."'>Delete</button>
+                                </form>
+                            </td>
+                          </tr>";
                 }
             } else {
-                echo "<tr><td colspan='2'>0 results</td></tr>";
+                echo "<tr><td colspan='5'>0 results</td></tr>";
             }
             $conn->close();
             ?>

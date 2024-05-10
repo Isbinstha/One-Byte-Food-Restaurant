@@ -92,3 +92,17 @@ nav ul li a:hover {
 .logo-link:hover {
     color: #ffcc00; 
 }
+
+.delete-button {
+    background-color: #ff5555; 
+    color: #fff; 
+    border: none; 
+    padding: 5px 10px;
+    border-radius: 5px; 
+    cursor: pointer; 
+}
+
+
+.delete-button:hover {
+    background-color: #ff0000; 
+}
