@@ -8,7 +8,7 @@ if ($conn->connect_error) {
 // Delete user if requested
 if(isset($_GET['delete_id'])) {
     $delete_id = $_GET['delete_id'];
-    $delete_sql = "DELETE FROM signup WHERE ID='$delete_id'";
+    $delete_sql = "DELETE FROM users WHERE ID='$delete_id'";
     if ($conn->query($delete_sql) === TRUE) {
         echo "Record deleted successfully.";
     } else {
@@ -16,7 +16,7 @@ if(isset($_GET['delete_id'])) {
     }
 }
 
-$sql = "SELECT ID, Name, Email, Phone_Number FROM signup";
+$sql = "SELECT ID, username, email, phone FROM users";
 $result = $conn->query($sql);
 ?>
 
@@ -51,8 +51,8 @@ $result = $conn->query($sql);
 <body>
     <header>
         <div class="container">
-        <a href="adminMainpage.html" class="logo-link">
-                <h1>One Byte Foods</h1>
+            <a href="adminMainpage.html" class="logo-link">
+                <h1 style="color: yellow;">One Byte Foods</h1>
             </a>
             <nav>
                 <ul>
@@ -79,9 +79,9 @@ $result = $conn->query($sql);
                 while($row = $result->fetch_assoc()) {
                     echo "<tr>
                             <td>".$row["ID"]."</td>
-                            <td>".$row["Name"]."</td>
-                            <td>".$row["Email"]."</td>
-                            <td>".$row["Phone_Number"]."</td>
+                            <td>".$row["username"]."</td>
+                            <td>".$row["email"]."</td>
+                            <td>".$row["phone"]."</td>
                             <td>
                                 <form method='post' style='display:inline;'>
                                     <button type='submit' formaction='userDetails.php?delete_id=".$row["ID"]."'>Delete</button>

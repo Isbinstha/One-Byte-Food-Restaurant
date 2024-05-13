@@ -68,7 +68,7 @@
     <header>
         <div class="container">
             <a href="adminMainpage.html" class="logo-link">
-                <h1>One Byte Foods</h1>
+            <h1 style="color: yellow;">One Byte Foods</h1>
             </a>
             <nav>
                 <ul>

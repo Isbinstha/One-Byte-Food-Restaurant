@@ -9,23 +9,32 @@
 <body>
     <header>
         <div class="container">
-            <a href="Mainpage.html"class="logo-link">
-                <h1>One Byte Foods</h1>
+            <a href="Mainpage.html" class="logo-link">
+                <h1 style="color: yellow;">One Byte Foods</h1>
             </a>
             <nav>
                 <ul>
                     <li><a href="booking.php" class="active">Bookings</a></li>
                     <li><a href="contactUS.php">Contact Us</a></li>
-                    <li><a href="http://localhost/One%20Byte%20Food%20Restaurant/User%20side/login.php">Login</a></li>
+                    <?php
+                    session_start(); // Start session at the beginning of the file
+
+                    // Check if the user is logged in
+                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+                        echo '<li><a href="logout.php">Logout</a></li>'; // Change to "Logout" if logged in
+                    } else {
+                        echo '<li><a href="login.php">Login</a></li>'; // Change to "Login" if not logged in
+                    }
+                    ?>
                 </ul>
             </nav>
         </div>
     </header>
     <h2>Book Your Table</h2>
     <div class="column">
-        <a href="http://localhost/One%20Byte%20Food%20Restaurant/User%20side/2table.php"><div class="table-box">Table for 2</div></a>
-        <a href="http://localhost/One%20Byte%20Food%20Restaurant/User%20side/4table.php"><div class="table-box">Table for 4</div></a>
-        <a href="http://localhost/One%20Byte%20Food%20Restaurant/User%20side/6table.php"><div class="table-box">Table for 6 and more</div> </a>
+        <a href="2table.php"><div class="table-box">Table for 2</div></a>
+        <a href="4table.php"><div class="table-box">Table for 4</div></a>
+        <a href="6table.php"><div class="table-box">Table for 6 and more</div></a>
     </div>
 </body>
 </html>

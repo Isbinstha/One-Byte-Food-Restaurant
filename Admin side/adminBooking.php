@@ -1,41 +1,111 @@
+<?php
+session_start();
+
+
+// Establish database connection
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "one_byte_foods";
+
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Function to fetch booked seats for a specific table type
+function fetchBookedSeats($tableType) {
+    global $conn;
+    $sql = "SELECT * FROM booked_tables_$tableType";
+    $result = $conn->query($sql);
+    $bookedSeats = array();
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $bookedSeats[] = $row;
+        }
+    }
+    return $bookedSeats;
+}
+
+// Fetch booked seats for tables for 2, 4, and 6
+$bookedSeatsTwo = fetchBookedSeats("two");
+$bookedSeatsFour = fetchBookedSeats("four");
+$bookedSeatsSix = fetchBookedSeats("six");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Table Booking</title>
-    <link rel="stylesheet" href="adminBooking.css">
+    <title>One Byte Foods</title>
+    <link rel="stylesheet" href="tables.css">
     <style>
-        /* CSS for the table border */
-        table {
-            border-collapse: collapse;
-            width: 100%;
+        /* CSS for table styling */
+        .booking-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
         }
+
+        .table-selection {
+            margin-bottom: 30px;
+            width: 100%;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
         th, td {
-            border: 1px solid #333; 
-            padding: 5px;
+            border: 1px solid #ddd;
+            padding: 8px;
             text-align: left;
         }
+
         th {
             background-color: #f2f2f2;
+            color: #333;
         }
-        tr {
-            background-color: #f2f2f2;
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Adjusting the width of the "Table Number" column */
+        .table-selection table th:first-child,
+        .table-selection table td:first-child {
+            width: 20%;
+        }
+
+        /* Adjusting the width of the "Name" column */
+        .table-selection table th:nth-child(2),
+        .table-selection table td:nth-child(2) {
+            width: 40%;
         }
     </style>
-    
 </head>
 <body>
-    <!-- Existing header and navigation code -->
+    
+
+
     <header>
         <div class="container">
-            <a href="adminMainpage.html" class="logo-link">
-                <h1>One Byte Foods</h1>
+            <a href="adminMainpage.html">
+            <h1 style="color: yellow;">One Byte Foods</h1>
             </a>
             <nav>
                 <ul>
                     <li><a href="adminBooking.php"><b>Bookings</b></a></li>
-                    <li><a href="http://localhost/One%20Byte%20Food%20Restaurant/Admin%20side/userDetails.php"><b>User Details</b></a></li>
+                    <li><a href="userdetails.php"><b>User Details</b></a></li>
                     <li><a href="Tables.php"><b>Tables</b></a></li>
                     <li><a href="feedback.php"><b>Feedbacks</b></a></li>
                 </ul>
@@ -44,101 +114,68 @@
     </header>
 
     <div class="booking-container">
-        <?php
-        $servername = "localhost";
-        $username = "root"; // Replace with your MySQL username
-        $password = ""; // Replace with your MySQL password
-        $database = "one_byte_foods"; // Replace with your database name
-        $conn = new mysqli($servername, $username, $password, $database);
-
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-        // Update table availability if form is submitted
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $tableId = $_POST["TableID"];
-            $newAvailability = $_POST["Availability" . $tableId]; // Corrected here
-
-            $sql = "UPDATE tables SET Availability='$newAvailability' WHERE TableID='$tableId'";
-            if ($conn->query($sql) === TRUE) {
-                echo "Table availability updated successfully.";
-            } else {
-                echo "Error updating table availability: " . $conn->error;
-            }
-        }
-        ?>
-    
+        <!-- Table for 2 -->
         <div class="table-selection">
-            <?php
-            // Establish database connection
-            $servername = "localhost";
-            $username = "root"; // Replace with your MySQL username
-            $password = ""; // Replace with your MySQL password
-            $database = "one_byte_foods"; // Replace with your database name
-            $conn = new mysqli($servername, $username, $password, $database);
-
-            // Check connection
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
-
-            // Fetch table data from the database
-            $sql = "SELECT * FROM tables";
-            $result = $conn->query($sql);
-
-            // Display tables
-            if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                    // Add appropriate class based on the table status
-                    $status_class = "Availability";
-                    if ($row["Availability"] == "unavailable") {
-                        $status_class = "unavailable";
-                    } elseif ($row["Availability"] == "sold-out") {
-                        $status_class = "sold-out";
-                    } elseif ($row["Availability"] == "my-seat") {
-                        $status_class = "my-seat";
-                    } elseif ($row["Availability"] == "reserved") {
-                        $status_class = "reserved";
-                    } else {
-                        $status_class = "available";
-                    }
-
-                    echo '<div class="column">';
-                    // Add the class to the table-box
-                    echo '<div class="table-box ' . $status_class . '">' . $row["TableName"] . '</div>';
-
-                    // Form to update availability
-                    echo '<form method="post">';
-                    echo '<input type="hidden" name="TableID" value="' . $row["TableID"] . '">';
-                    echo '<select name="Availability' . $row["TableID"] . '">'; // Corrected here
-                    echo '<option value="unavailable">Unavailable</option>';
-                    echo '<option value="sold-out">Sold Out</option>';
-                    echo '<option value="available">Available</option>';
-                    echo '<option value="my-seat">My Seat</option>';
-                    echo '<option value="reserved">Reserved</option>';
-                    echo '</select>';
-                    echo '<input type="submit" value="Update">';
-                    echo '</form>';
-
-                    echo '</div>';
-                }
-            } else {
-                echo "0 tables found.";
-            }
-            $conn->close();
-            ?>
+            <h2>Tables for 2</h2>
+            <table>
+                <tr>
+                    <th>Table Number</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+                <?php foreach ($bookedSeatsTwo as $seat) : ?>
+                    <tr>
+                        <td><?php echo $seat['table_number']; ?></td>
+                        <td><?php echo $seat['user_name']; ?></td>
+                        <td><?php echo $seat['user_email']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
         </div>
 
-        <!-- Legend for table status -->
-        <div class="legend">
-            <div><span class="dot unavailable"></span>Unavailable</div>
-            <div><span class="dot sold-out"></span>Sold Out</div>
-            <div><span class="dot available"></span>Available</div>
-            <div><span class="dot my-seat"></span>My Seat</div>
-            <div><span class="dot reserved"></span>Reserved</div>
+        <!-- Table for 4 -->
+        <div class="table-selection">
+            <h2>Tables for 4</h2>
+            <table>
+                <tr>
+                    <th>Table Number</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+                <?php foreach ($bookedSeatsFour as $seat) : ?>
+                    <tr>
+                        <td><?php echo $seat['table_number']; ?></td>
+                        <td><?php echo $seat['user_name']; ?></td>
+                        <td><?php echo $seat['user_email']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
         </div>
 
-    </div>
+        <!-- Table for 6 -->
+        <div class="table-selection">
+            <h2>Tables for 6</h2>
+            <table>
+                <tr>
+                    <th>Table Number</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+                <?php foreach ($bookedSeatsSix as $seat) : ?>
+                    <tr>
+                        <td><?php echo $seat['table_number']; ?></td>
+                        <td><?php echo $seat['user_name']; ?></td>
+                        <td><?php echo $seat['user_email']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+
+        
 </body>
 </html>
+
+<?php
+// Close database connection
+$conn->close();
+?>

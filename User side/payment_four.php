@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment</title>
-    <link rel="stylesheet" href="payment.css"> 
+    <link rel="stylesheet" href="payment_four.css"> 
     <style>
         .warning {
             color: red;
@@ -42,7 +42,7 @@
 
     <div class="payment-container">
         <h2>Payment</h2>
-        <form id="payment-form" action="payment_process.php" method="post">
+        <form id="payment-form" action="payment_process_four.php" method="post">
 
             <div class="payment-option">
                 <label for="amount">Amount:</label>

@@ -1,59 +1,114 @@
 <?php
+// Start session
+session_start();
+
+// Check if user is already logged in, redirect to booking page if logged in
+if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+    header("Location: booking.php");
+    exit();
+}
+
+// Database connection parameters
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "one_byte_foods";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $conn = mysqli_connect("localhost", "root", "", "one_byte_foods");
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-    $user = mysqli_real_escape_string($conn, $_POST['Email']);
-    $pass = mysqli_real_escape_string($conn, $_POST['password']);
-    $sql = "SELECT * FROM signup WHERE Email='$user'";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $db_pass = $row['Password']; 
-        if ($pass === $db_pass) {
-            header('Location: Mainpage.html');
-            exit;
+    // Get the submitted email and password
+    $email = $_POST["Email"];
+    $password = $_POST["password"];
+
+    // Prepare SQL statement to fetch user data from the database
+    $sql = "SELECT * FROM users WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+
+    // Execute the statement
+    $stmt->execute();
+
+    // Get the result
+    $result = $stmt->get_result();
+
+    // Check if a user with the provided email exists
+    if ($result->num_rows == 1) {
+        // Fetch user data
+        $user = $result->fetch_assoc();
+
+        // Verify the password
+        if (password_verify($password, $user["password"])) {
+            // Set session variables
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_name'] = $user['username'];
+            $_SESSION['user_email'] = $user['email'];
+            $_SESSION['logged_in'] = true; // Set session variable for logged-in status
+            // Redirect to booking page
+            header("Location: booking.php");
+            exit();
         } else {
-            echo "<script>alert('Incorrect password.');</script>";
+            // Password is incorrect, display error message
+            $error_message = "Invalid details. Please try again.";
         }
     } else {
-        echo "<script>alert('Email not found or invalid.');</script>";
+        // User does not exist, display error message
+        $error_message = "Invalid details. Please try again.";
     }
 
-    $conn->close();
+    // Close the statement
+    $stmt->close();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="login.css">
     <title>Login</title>
-    <script>
-        function validateForm() {
-            var email = document.getElementById("email").value;
-            if (email.indexOf("@") == -1) {
-                alert("Please enter a valid email address.");
-                return false;
-            }
-            return true;
-        }
-    </script>
+    <link rel="stylesheet" href="login.css">
 </head>
-<body >
-    <div class="container">
-        <h1>Login</h1>
-        <form action="login.php" method="post">
-            <p><b>Email :</b></p> <input type="text" placeholder="Email" name="Email" required>
-            <p><b>Password :</b></p><input type="password" placeholder="Password" name="password" required>
-            <button type="submit">Login</button>
-        </form>
-        
-        <p><b>Don't have an account?</b> <a href="signup.php"><b>Sign Up</b></a></p>
-        <p><b>Login as:</b> <a href="http://localhost/One%20Byte%20Food%20Restaurant/Admin%20side/adminlogin.php"><b>Admin</b></a></p>
+<body>
+    <header>
+        <div class="container">
+            <a href="Mainpage.php" class="logo-link">
+                <h1>One Byte Foods</h1>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="booking.php">Bookings</a></li>
+                    <li><a href="contactUS.php">Contact Us</a></li>
+                    <?php if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) { ?>
+                        <li><a href="logout.php" class="active">Logout</a></li>
+                    <?php } else { ?>
+                        <li><a href="login.php" class="active">Login</a></li>
+                    <?php } ?>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="login-container">
+        <div class="login">
+            <h2>Login</h2>
+            <?php if(isset($error_message)) { ?>
+                <p class="error-message"><?php echo $error_message; ?></p>
+            <?php } ?>
+            <form id="login-form" action="" method="post">
+                <input type="text" placeholder="Email" id="Email" name="Email" required>
+                <input type="password" placeholder="Password" id="password" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+            <p>Don't have an account? <a href="signup.php">Sign Up</a></p>
+            <p>Login as: <a href="http://localhost/One%20Byte%20Food%20Restaurant/Admin%20side/adminlogin.php">Admin</a></p>
+        </div>
     </div>
 </body>
 </html>

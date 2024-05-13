@@ -21,13 +21,22 @@
     <header>
         <div class="container">
             <a href="Mainpage.html" class="logo-link">
-                <h1>One Byte Foods</h1>
+                <h1 style="color: yellow;">One Byte Foods</h1>
             </a>
             <nav>
                 <ul>
                     <li><a href="booking.php">Bookings</a></li>
                     <li><a href="contactUS.php" class="active">Contact Us</a></li>
-                    <li><a href="login.php">Login</a></li>
+                    <?php
+                    session_start(); // Start session at the beginning of the file
+
+                    // Check if the user is logged in
+                    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+                        echo '<li><a href="logout.php">Logout</a></li>'; // Change to "Logout" if logged in
+                    } else {
+                        echo '<li><a href="login.php">Login</a></li>'; // Change to "Login" if not logged in
+                    }
+                    ?>
                 </ul>
             </nav>
         </div>
@@ -93,7 +102,7 @@
             $email = $_POST["email"];
             $message = $_POST["message"];
 
-            $check_user_query = "SELECT * FROM signup WHERE name='$name' AND email='$email'";
+            $check_user_query = "SELECT * FROM users WHERE name='$name' AND email='$email'";
             $check_user_result = $conn->query($check_user_query);
 
             if ($check_user_result->num_rows > 0) {
