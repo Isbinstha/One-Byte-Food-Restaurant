@@ -7,10 +7,7 @@
     overflow: hidden; 
 }
 
-.booking-container {
-    text-align: center;
-    margin: 20px auto;
-}
+
 
 .column {
     padding-left: 50px;
@@ -23,7 +20,7 @@
 .table-box {
     width: 180px;
     height: 80px;
-    background-color: #f0f0f0;
+    /* background-color: #f0f0f0; */
     border: 1px solid #ccc;
     border-radius: 5px;
     margin: 10px 0;
@@ -38,13 +35,14 @@
     background-color: #ffcc00; /* Change background color to yellow on hover */
 }
 
-/* styles.css */
-/* body {
+
+
+ body {
     margin: 0;
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../bgi.jpg");
     margin: 0; 
     padding: 0; 
-} */
+} 
 
 header {
     background-color: #333;
@@ -92,7 +90,7 @@ nav ul li a:hover {
 }
 
 .legend {
-    
+    color: white;
     position: fixed;
     top: 60%;
     right: 30%;
@@ -124,15 +122,11 @@ nav ul li a:hover {
 .sold-out { background-color: red; }
 .my-seat { background-color: lightblue; }
 
-/* body {
-    overflow: hidden; 
-}  */
+
  
 
 
-.booking-container{
-    width:100%;
-}
+
 
 .table-selection{
     margin-top: 3%;
@@ -146,10 +140,7 @@ nav ul li a:hover {
     padding-left: 30%;
 }
 
-/*Bug to be solve for tsk-2*/
-/* .legend{
-    padding-left: 400px;
-} */
+
 
 .action{
     width:100%;
@@ -160,10 +151,7 @@ nav ul li a:hover {
     margin-top: 5%;
 }
 
-/**/
 
-
-/* Additional CSS rules for form */
 
 
 .booking-container label {

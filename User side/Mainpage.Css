@@ -63,20 +63,21 @@ p{
     margin-left: 9px;
 }
 p1 {
+    padding: 2%;
     position: absolute;
     font-size: 17px;
-    color: #ffcc00; /* Gold color */
+    color: #ffcc00; 
     text-align: center;
-    top: 65%; /* Center vertically */
-    left: 50%; /* Center horizontally */
-    transform: translate(-50%, -50%); /* Adjust the positioning */
-    background-color: rgba(0, 0, 0, 0.6); /* Transparent black background */
-    padding: 20px; /* Add padding for spacing */
-    border-radius: 10px; /* Add rounded corners */
-    width: 80%; /* Set the width of the box */
-    max-width: 600px; /* Set a maximum width to prevent it from getting too wide */
-    box-sizing: border-box; /* Include padding and border in the width */
+    top: 55%; 
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    background-color: rgba(0, 0, 0, 0.6); 
+    border-radius: 10px; 
+    width: 80%; 
+    max-width: 600px; 
+    box-sizing: border-box;
 }
+
 .photo-gallery {
     display: flex;
     justify-content: space-around;
@@ -85,9 +86,9 @@ p1 {
 }
 
 .photo-gallery img {
-    width: 276px; /* Adjust the width as needed */
-    height: auto; /* Maintain the aspect ratio */
-    border: 1px solid #ccc; /* Optional border */
-    border-radius: 10px; /* Optional rounded corners */
-    margin: 10px; /* Space between images */
+    width: 276px; 
+    height: auto; 
+    border: 1px solid #ccc; 
+    border-radius: 10px;
+    margin: 10px; 
 }

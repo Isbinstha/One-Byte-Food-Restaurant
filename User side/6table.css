@@ -200,8 +200,8 @@ label[for="time"] {
     left: 850px; /* Move the labels up by 50 pixels */
 }
 
-/* Reservation button */
 .reserve-button {
+    background-color: #4CAF50;
     height: 34px;
     width: 120px; /* Set the width to match the Buy button */
     cursor: pointer;
@@ -212,6 +212,7 @@ label[for="time"] {
 
 /* Buy button */
 .buy-button {
+    background-color: #4CAF50;
     height: 34px;
     width: 120px; /* Set the width to match the Reservation button */
     cursor: pointer;
@@ -220,6 +221,7 @@ label[for="time"] {
     bottom: 90px; /* Move the button below the screen */
     left: 1030px; /* Adjust the left position as needed */
 }
+
 
 
 

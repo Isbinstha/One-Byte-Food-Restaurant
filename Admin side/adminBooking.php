@@ -46,21 +46,23 @@ $bookedSeatsSix = fetchBookedSeats("six");
         /* CSS for table styling */
         .booking-container {
             background-color: #fff;
-            padding: 20px;
+            text-align: center;
+            margin: 20px auto;
+            width:50%;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
+            margin-top: 5%;
         }
 
         .table-selection {
             margin-bottom: 30px;
-            width: 100%;
+            width: 70%;
             display: inline-block;
             box-sizing: border-box;
         }
 
         table {
-            width: 100%;
+            width: 100%%;
             border-collapse: collapse;
             margin-top: 20px;
         }

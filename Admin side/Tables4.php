@@ -6,7 +6,6 @@
     <title>Table Booking</title>
     <link rel="stylesheet" href="tables.css">
     <style>
-        /* CSS for the table border */
         table {
             border-collapse: collapse;
             width: 100%;
@@ -23,15 +22,13 @@
             background-color: #f2f2f2;
         }
         h2 {
-            color: black;
+            color: White;
             text-align: center;
             font-size: 40px; 
         }
     </style>
-    
 </head>
 <body>
-    <!-- Existing header and navigation code -->
     <header>
         <div class="container">
             <a href="adminMainpage.html" class="logo-link">
@@ -48,54 +45,82 @@
         </div>
     </header>
     <h2>Table 4</h2>
-
     <div class="booking-container">
-    <?php
+        <?php
+        // Establish database connection
         $servername = "localhost";
-        $username = "root"; // Replace with your MySQL username
-        $password = ""; // Replace with your MySQL password
-        $database = "one_byte_foods"; // Replace with your database name
+        $username = "root"; 
+        $password = ""; 
+        $database = "one_byte_foods"; 
         $conn = new mysqli($servername, $username, $password, $database);
 
         // Check connection
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
-        // Update table availability if form is submitted
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $tableId = $_POST["TableID"];
-            $newAvailability = $_POST["Availability" . $tableId]; // Corrected here
 
-            $sql = "UPDATE tables SET Availability='$newAvailability' WHERE TableID='$tableId'";
-            if ($conn->query($sql) === TRUE) {
-                echo "Table availability updated successfully.";
+        // Error message variable
+        $error_message = "";
+
+        // Handling form submission for updating table availability
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            
+            if(isset($_POST["TableID"]) && isset($_POST["Availability"])) {
+                $tableId = $_POST["TableID"];
+                $newAvailability = $_POST["Availability"];
+
+                $sql = "UPDATE tables_four SET Availability='$newAvailability' WHERE TableID='$tableId'";
+                if ($conn->query($sql) === TRUE) {
+                    $error_message = "Table availability updated successfully.";
+                } else {
+                    $error_message = "Error updating table availability: " . $conn->error;
+                }
             } else {
-                echo "Error updating table availability: " . $conn->error;
+                $error_message = "TableID or Availability not set.";
+            }
+        }
+
+        // Handling form submission for adding/deleting tables
+        if(isset($_POST['add_table']) || isset($_POST['delete_table'])) {
+            if(isset($_POST['add_table'])) {
+                $tableName = $_POST['table_name'];
+                $availability = $_POST['availability'];
+                // Check if the table name already exists
+                $check_query = "SELECT * FROM tables_four WHERE TableName='$tableName'";
+                $check_result = $conn->query($check_query);
+
+                if ($check_result->num_rows > 0) {
+                    $error_message = "Table with this name already exists. Please choose a different name.";
+                } else {
+                    // Perform the SQL query to add a new table
+                    $sql = "INSERT INTO tables_four (TableName, Availability) VALUES ('$tableName', '$availability')";
+                    if ($conn->query($sql) === TRUE) {
+                        $error_message = "New table added successfully.";
+                    } else {
+                        $error_message = "Error adding new table: " . $conn->error;
+                    }
+                }
+            }
+            if(isset($_POST['delete_table'])) {
+                $tableName = $_POST['table_name'];
+                // Perform the SQL query to delete a table
+                $sql = "DELETE FROM tables_four WHERE TableName='$tableName'";
+                if ($conn->query($sql) === TRUE) {
+                    $error_message = "Table deleted successfully.";
+                } else {
+                    $error_message = "Error deleting table: " . $conn->error;
+                }
             }
         }
         ?>
         <div class="table-selection">
             <?php
-            // Establish database connection
-            $servername = "localhost";
-            $username = "root"; // Replace with your MySQL username
-            $password = ""; // Replace with your MySQL password
-            $database = "one_byte_foods"; // Replace with your database name
-            $conn = new mysqli($servername, $username, $password, $database);
-
-            // Check connection
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
-
             // Fetch table data from the database
             $sql = "SELECT * FROM tables_four";
             $result = $conn->query($sql);
-
             // Display tables
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
-                    // Add appropriate class based on the table status
                     $status_class = "Availability";
                     if ($row["Availability"] == "unavailable") {
                         $status_class = "unavailable";
@@ -108,15 +133,12 @@
                     } else {
                         $status_class = "available";
                     }
-
                     echo '<div class="column">';
-                    // Add the class to the table-box
                     echo '<div class="table-box ' . $status_class . '">' . $row["TableName"] . '</div>';
-
-                    // Form to update availability
                     echo '<form method="post">';
                     echo '<input type="hidden" name="TableID" value="' . $row["TableID"] . '">';
-                    echo '<select name="Availability' . $row["TableID"] . '">'; // Corrected here
+
+                    echo '<select name="Availability">'; 
                     echo '<option value="unavailable">Unavailable</option>';
                     echo '<option value="sold-out">Sold Out</option>';
                     echo '<option value="available">Available</option>';
@@ -134,7 +156,6 @@
             $conn->close();
             ?>
         </div>
-
         <!-- Legend for table status -->
         <div class="legend">
             <div><span class="dot unavailable"></span>Unavailable</div>
@@ -161,71 +182,15 @@
                     <br>
                     <button type="submit" name="delete_table">Delete Table</button>
                 </form>
-                <div class="message" >
-
-                
-                <?php
-                // Handling form submission for adding/deleting tables
-                if(isset($_POST['add_table']) || isset($_POST['delete_table'])) {
-                    // Establish database connection
-                    $servername = "localhost";
-                    $username = "root"; // Replace with your MySQL username
-                    $password = ""; // Replace with your MySQL password
-                    $database = "one_byte_foods"; // Replace with your database name
-                    $conn = new mysqli($servername, $username, $password, $database);
-
-                    // Check connection
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
-
-                    if(isset($_POST['add_table'])) {
-                        $tableName = $_POST['table_name'];
-                        $availability = $_POST['availability'];
-
-                        // Perform the SQL query to add a new table
-                        $sql = "INSERT INTO tables_four (TableName, Availability) VALUES ('$tableName', '$availability')";
-                        if ($conn->query($sql) === TRUE) {
-                            echo "<p>New table added successfully.</p>";
-                        } else {
-                            echo "Error: " . $sql . "<br>" . $conn->error;
-                        }
-                    }
-
-                    if(isset($_POST['delete_table'])) {
-                        $tableName = $_POST['table_name'];
-
-                        // Perform the SQL query to delete a table
-                        $sql = "DELETE FROM tables_four WHERE TableName='$tableName'";
-                        if ($conn->query($sql) === TRUE) {
-                            echo "<p id='successMsg'>Table deleted successfully.</p>";
-                        } else {
-                            echo "Error: " . $sql . "<br>" . $conn->error;
-                        }
-                    }
-                    $conn->close();
-                }
-                ?>
+                <div class="message">
+                    <script>
+                    <?php if(!empty($error_message)): ?>
+                        alert("<?php echo $error_message; ?>");
+                    <?php endif; ?>
+                    </script>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        // Function to remove the success message after a delay
-        function removeSuccessMessage() {
-            var successMsg = document.getElementById('successMsg');
-            if (successMsg) {
-                setTimeout(function() {
-                    successMsg.remove();
-                }, 3000); // Remove after 3 seconds (adjust as needed)
-            }
-        }
-
-        // Call the function when the page loads
-        window.onload = function() {
-            removeSuccessMessage();
-        };
-    </script>
 </body>
 </html>

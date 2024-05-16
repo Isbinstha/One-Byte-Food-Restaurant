@@ -24,53 +24,71 @@
             background-color: #f2f2f2;
         }
     </style>
+    <script>
+        function validateForm() {
+            var username = document.getElementById("username").value;
+            var email = document.getElementById("Email").value;
+
+            if (username.match(/\d/)) {
+                alert("Name cannot contain numbers.");
+                return false;
+            }
+
+            if (email !== "admin@gmail.com") {
+                alert("Only 'admin@gmail.com' is allowed for admin login.");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
     <div class="container">
         <h1>Admin Login</h1>
-        <form id="login-form" method="post" action="adminlogin.php">
-            <p><b>Email :</b></p> <input type="text" placeholder="Email" name="Email" required>
+        <form id="login-form" method="post" action="adminlogin.php" onsubmit="return validateForm();">
+            <p><b>Name :</b></p><input type="text" placeholder="username" name="username" id="username" required>
+            <p><b>Email :</b></p> <input type="text" placeholder="Email" name="Email" id="Email" required>
             <p><b>Password :</b></p><input type="password" placeholder="Password" name="password" required>
             <button type="submit">Login</button>
         </form>
     </div>
 
     <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $conn = mysqli_connect("localhost", "root", "", "one_byte_foods");
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $conn = mysqli_connect("localhost", "root", "", "one_byte_foods");
 
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Sanitize input
-    $user = mysqli_real_escape_string($conn, $_POST['Email']);
-    $pass = mysqli_real_escape_string($conn, $_POST['password']);
-
-    $sql = "SELECT * FROM admin WHERE Email='$user'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        // User exists, verify password
-        $row = $result->fetch_assoc();
-        $db_pass = $row['Password']; // Retrieve password from database
-        if ($pass === $db_pass) {
-            // Password is correct, redirect to home page
-            header('Location: adminMainpage.html');
-            exit;
-        } else {
-            // Password is incorrect
-            echo "Incorrect password.";
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
         }
-    } else {
-        // User does not exist
-        echo "User does not exist.";
+
+        // Sanitize input
+        $name = mysqli_real_escape_string($conn, $_POST['username']);
+        $email = mysqli_real_escape_string($conn, $_POST['Email']);
+        $pass = mysqli_real_escape_string($conn, $_POST['password']);
+
+        $sql = "SELECT * FROM admin WHERE Name='$name' AND Email='$email'";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            // User exists, verify password
+            $row = $result->fetch_assoc();
+            $db_pass = $row['Password']; // Retrieve password from database
+            if ($pass === $db_pass)  {
+                echo "<script>alert('Login successful.'); window.location='adminMainpage.html';</script>";
+            } else {
+                echo "<script>alert('Incorrect password.');</script>";
+            }
+        } 
+
+        $conn->close();
     }
+    ?>
 
-    $conn->close();
-}
-?>
 
+
+    <script>
+        
+    </script>
 </body>
 </html>

@@ -106,6 +106,7 @@ nav ul li a:hover {
 /* Legend for table status */
 .legend {
     position: fixed;
+    margin-top: 2%;
     top: 45%;
     right: 30%;
     transform: translateY(-50%);
@@ -202,6 +203,7 @@ label[for="time"] {
 
 /* Reservation button */
 .reserve-button {
+    background-color: #4CAF50;
     height: 34px;
     width: 120px; /* Set the width to match the Buy button */
     cursor: pointer;
@@ -212,6 +214,7 @@ label[for="time"] {
 
 /* Buy button */
 .buy-button {
+    background-color: #4CAF50;
     height: 34px;
     width: 120px; /* Set the width to match the Reservation button */
     cursor: pointer;

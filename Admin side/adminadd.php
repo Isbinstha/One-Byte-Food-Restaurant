@@ -5,16 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="login.css">
     <title>New Admin</title>
-    <!-- <script>
+    <script>
         function validateForm() {
             var email = document.getElementById("email").value;
-            if (email.indexOf("@admin.com") == -1) {
+            if (email.indexOf("@gmail.com") == -1) {
                 alert("Please enter a valid admin email address.");
+                return false;
+            }
+            var username = document.getElementById("username").value;
+            var email = document.getElementById("email").value;
+            if (username.match(/\d/)) {
+                alert("Name cannot contain numbers.");
+                return false;
+            }
+            if (email !== "admin@gmail.com") {
+                alert("Only 'admin@gmail.com' is allowed for admin signup.");
                 return false;
             }
             return true;
         }
-    </script> -->
+        </script>
 </head>
 <body>
     <div class="container">
@@ -38,20 +48,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
 
-    // Insert data into the database
+    
     $sql = "INSERT INTO admin (Name, Email,  Password) VALUES ('$username', '$email', '$password')";
     if (mysqli_query($conn, $sql)) {
-        // Data inserted successfully, redirect to login page
+       
         header("Location: adminlogin.php");
         exit;
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
 }
-
 // Close connection
 mysqli_close($conn);
 ?>
-
+</script>
 </body>
 </html>

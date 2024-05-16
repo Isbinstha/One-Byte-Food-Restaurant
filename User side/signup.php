@@ -25,13 +25,12 @@
     <div class="login">
         <h1>Sign Up</h1>
         <?php
-        // Database configuration
+        
         $servername = "localhost";
-        $username = "root"; // Default username for XAMPP
-        $password = ""; // Default password for XAMPP
-        $database = "one_byte_foods"; // Your database name
-
-        // Create connection
+        $username = "root"; 
+        $password = ""; 
+        $database = "one_byte_foods"; 
+        
         $conn = new mysqli($servername, $username, $password, $database);
 
         // Check connection
@@ -41,30 +40,27 @@
 
         // Check if the form is submitted
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Prepare and bind parameters
+            
             $username = $_POST["username"];
             $email = $_POST["email"];
             $phone = $_POST["phone"];
             $password = $_POST["password"];
             $confirm_password = $_POST["confirm_password"];
 
-            // Validate password and confirm password match
             if ($password !== $confirm_password) {
                 echo "Passwords do not match.";
                 exit();
             }
 
-            // Hash the password
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-            // Prepare SQL statement to insert user data into the database
             $sql = "INSERT INTO users (username, email, phone, password) VALUES (?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("ssss", $username, $email, $phone, $hashed_password);
 
-            // Execute the statement
+            
             if ($stmt->execute()) {
-                echo "User registered successfully.";
+               
+                echo "<script>alert('User registered successfully..'); window.location='login.php';</script>";
             } else {
                 echo "Error: " . $conn->error;
             }
@@ -82,7 +78,7 @@
             <p><b>Confirm Password :</b></p><input type="password" placeholder="reType" name="confirm_password" id="signup-confirmpassword" required>
             <button type="submit"><b>Sign Up</b></button>
         </form>
-        <div style="margin-top: 20px;"> <!-- Adding margin-top for spacing -->
+        <div style="margin-top: 20px;"> 
             <a href="login.php"><button><b>Back to Login</b></button></a>
         </div>
     </div>

@@ -3,19 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Table Booking</title>
+    <title>Contact Us</title>
     <link rel="stylesheet" href="contact.css">
-    <script>
-        // Function to hide messages after 3 seconds
-        function hideMessage() {
-            var messages = document.getElementsByClassName("message");
-            setTimeout(function() {
-                for (var i = 0; i < messages.length; i++) {
-                    messages[i].style.display = "none";
-                }
-            }, 3000);
-        }
-    </script>
 </head>
 <body>
     <header>
@@ -28,13 +17,12 @@
                     <li><a href="booking.php">Bookings</a></li>
                     <li><a href="contactUS.php" class="active">Contact Us</a></li>
                     <?php
-                    session_start(); // Start session at the beginning of the file
+                    session_start(); 
 
-                    // Check if the user is logged in
                     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-                        echo '<li><a href="logout.php">Logout</a></li>'; // Change to "Logout" if logged in
+                        echo '<li><a href="logout.php">Logout</a></li>'; 
                     } else {
-                        echo '<li><a href="login.php">Login</a></li>'; // Change to "Login" if not logged in
+                        echo '<li><a href="login.php">Login</a></li>'; 
                     }
                     ?>
                 </ul>
@@ -58,9 +46,12 @@
             <input type="text" id="name" name="name" placeholder="Your Name" required>
             <input type="email" id="email" name="email" placeholder="Your Email" required>
             <textarea id="message" name="message" rows="4" placeholder="Your Message" required></textarea>
-            <button type="submit" onclick="hideMessage()">Send Message</button>
+            <br>
+            <button type="submit">Send Message</button>
         </form>
         <?php
+        
+
         // Database connection parameters
         $servername = "localhost";
         $username = "root"; 
@@ -68,60 +59,42 @@
         $dbname = "one_byte_foods";
 
         // Create connection
-        $conn = new mysqli($servername, $username, $password);
+        $conn = new mysqli($servername, $username, $password, $dbname);
 
-        // Check connection
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        // Create database if not exists
-        $sql = "CREATE DATABASE IF NOT EXISTS $dbname";
-        if ($conn->query($sql) === FALSE) {
-            echo "Error creating database: " . $conn->error;
-        }
-
-        // Select the database
-        $conn->select_db($dbname);
-
-        // Create feedback table if not exists
-        $sql = "CREATE TABLE IF NOT EXISTS feedback (
-            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(50) NOT NULL,
-            email VARCHAR(50) NOT NULL,
-            message TEXT NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )";
-        if ($conn->query($sql) === FALSE) {
-            echo "Error creating table: " . $conn->error;
-        }
-
-        // Check if user exists in signup table
+        // Check if form is submitted
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $name = $_POST["name"];
             $email = $_POST["email"];
             $message = $_POST["message"];
 
-            $check_user_query = "SELECT * FROM users WHERE name='$name' AND email='$email'";
+            // Check if the user exists in the users table
+            $check_user_query = "SELECT * FROM users WHERE username='$name' AND email='$email'";
             $check_user_result = $conn->query($check_user_query);
 
             if ($check_user_result->num_rows > 0) {
-                // User exists, proceed to insert into feedback table
-                $insert_feedback_query = "INSERT INTO feedback (name, email, message) VALUES ('$name', '$email', '$message')";
-                if ($conn->query($insert_feedback_query) === TRUE) {
-                    echo '<div class="message">Message sent successfully</div>';
+                $insert_feedback_query = "INSERT INTO feedback (name, email, message) VALUES (?, ?, ?)";
+                $stmt = $conn->prepare($insert_feedback_query);
+                $stmt->bind_param("sss", $name, $email, $message);
+
+                if ($stmt->execute()) {
+                    echo 'Message sent successfully.';
                 } else {
-                    echo '<div class="message">Error: ' . $conn->error . '</div>';
+                    echo 'Error message is unable to sent.';
                 }
-                // Redirect to prevent form resubmission
-                header("Location: {$_SERVER['REQUEST_URI']}", true, 303);
-                exit();
+
+                // Close statement
+                $stmt->close();
             } else {
-                // User doesn't exist in signup table
-                echo '<div class="message">You need to sign up first before sending a message.</div>';
+                // User doesn't exist in the users table
+                echo 'You need to sign up first before sending a message.';
             }
         }
 
+        // Close connection
         $conn->close();
         ?>
     </div>

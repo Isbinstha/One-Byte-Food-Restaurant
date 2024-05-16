@@ -71,6 +71,7 @@ nav ul li a:hover {
 .contact-form {
     display: flex;
     flex-direction: column;
+    font-style: normal;
 }
 
 .contact-form label {
@@ -79,7 +80,7 @@ nav ul li a:hover {
 
 .contact-form input[type="text"],
 .contact-form input[type="email"],
-.contact-form textarea {
+.contact-form input[type="message"] {
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;

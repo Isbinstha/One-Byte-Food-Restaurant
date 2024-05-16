@@ -4,7 +4,7 @@ session_start();
 
 // Check if user is already logged in, redirect to booking page if logged in
 if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-    header("Location: booking.php");
+    header("Location: login.php");
     exit();
 }
 
@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <header>
         <div class="container">
-            <a href="Mainpage.php" class="logo-link">
+            <a href="Mainpage.html" class="logo-link">
                 <h1>One Byte Foods</h1>
             </a>
             <nav>

@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Table Booking</title>
     <!-- Link to your CSS file -->
-    <link rel="stylesheet" href="2table.css">
+    <link rel="stylesheet" href="6table.css">
 </head>
 <body>
     <!-- Header and navigation code -->
