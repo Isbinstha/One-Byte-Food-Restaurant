@@ -250,41 +250,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     function reserveTable() {
-        // Gather necessary information
-        var date = document.getElementById('date').value;
-        var time = document.getElementById('time').value;
-        var selectedTables = JSON.parse(document.getElementById('selected_tables').value);
-        var userName = document.getElementById('user_name').value;
-        var userEmail = document.getElementById('user_email').value;
+        // Check if the user is logged in
+    if (!<?php echo json_encode($loggedIn); ?>) {
+        alert("Please log in to reserve a table.");
+        return;
+    }
+    // Gather necessary information
+    var date = document.getElementById('date').value;
+    var time = document.getElementById('time').value;
+    var selectedTables = JSON.parse(document.getElementById('selected_tables').value);
+    var userName = document.getElementById('user_name').value;
+    var userEmail = document.getElementById('user_email').value;
 
-        // Check if date, time, selected tables, and user details are filled
-        if (!date || !time || selectedTables.length === 0 || !userName || !userEmail) {
-            alert("Please fill in all the required fields before proceeding to reservation.");
-            return;
-        }
-
-        // Perform AJAX request to handle reservation
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>', true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    // Reservation successful, update table colors and display success message
-                    updateTableColors();
-                    showSuccessMessage();
-                } else {
-                    // Error handling if reservation failed
-                    console.error('Reservation failed:', xhr.responseText);
-                    alert('Reservation failed. Please try again later.');
-                }
-            }
-        };
-        var params = 'date=' + encodeURIComponent(date) + '&time=' + encodeURIComponent(time) + '&seats=' + encodeURIComponent(selectedTables.length * 6) + '&cost=' + encodeURIComponent(selectedTables.length * 600) + '&selected_tables=' + encodeURIComponent(JSON.stringify(selectedTables)) + '&user_name=' + encodeURIComponent(userName) + '&user_email=' + encodeURIComponent(userEmail);
-        xhr.send(params);
+    // Check if date, time, selected tables, and user details are filled
+    if (!date || !time || selectedTables.length === 0 || !userName || !userEmail) {
+        alert("Please fill in all the required fields before proceeding to reservation.");
+        return;
     }
 
+    // Perform AJAX request to handle reservation
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                // Reservation successful, display alert message
+                alert("Tables reserved successfully.");
+                // Update table colors
+                updateTableColors();
+            } else {
+                // Error handling if reservation failed
+                console.error('Reservation failed:', xhr.responseText);
+                alert('Reservation failed. Please try again later.');
+            }
+        }
+    };
+    var params = 'date=' + encodeURIComponent(date) + '&time=' + encodeURIComponent(time) + '&seats=' + encodeURIComponent(selectedTables.length * 6) + '&cost=' + encodeURIComponent(selectedTables.length * 600) + '&selected_tables=' + encodeURIComponent(JSON.stringify(selectedTables)) + '&user_name=' + encodeURIComponent(userName) + '&user_email=' + encodeURIComponent(userEmail);
+    xhr.send(params);
+}
+
+
     function buyTable() {
+        // Check if the user is logged in
+    if (!<?php echo json_encode($loggedIn); ?>) {
+        alert("Please log in to buy a table.");
+        return;
+    }
+
         // Check if date, time, selected tables, user_name, and user_email are filled
         var date = document.getElementById('date').value;
         var time = document.getElementById('time').value;

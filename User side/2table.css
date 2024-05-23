@@ -107,7 +107,7 @@ nav ul li a:hover {
 .legend {
     position: fixed;
     margin-top: 2%;
-    top: 45%;
+    top: 41%;
     right: 30%;
     transform: translateY(-50%);
     display: flex;

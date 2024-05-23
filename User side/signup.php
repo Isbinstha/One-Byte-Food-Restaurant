@@ -71,9 +71,9 @@
         }
         ?>
         <form id="signup-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-            <p><b>Name :</b></p><input type="text" placeholder="Username" name="username" id="signup-username" required>
-            <p><b>Email :</b></p><input type="email" placeholder="Email" name="email" id="signup-email" required>
-            <p><b>Phone Number :</b></p><input type="tel" placeholder="Phone Number" name="phone" id="signup-phone" required>
+            <p><b>Name :</b></p><input type="text" placeholder="Username" name="username" id="signup-username" pattern="[A-Za-z]+" title="Please enter letters only" required>
+            <p><b>Email :</b></p><input type="email" placeholder="Email" name="email" id="signup-email" pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" title="Please enter a valid Gmail address" required>
+            <p><b>Phone Number :</b></p><input type="text" placeholder="Phone Number" name="phone" id="signup-phone" pattern="[0-9]{10}" title="Please enter a 10-digit phone number" required>
             <p><b>Password :</b></p><input type="password" placeholder="Password" name="password" id="signup-password" required>
             <p><b>Confirm Password :</b></p><input type="password" placeholder="reType" name="confirm_password" id="signup-confirmpassword" required>
             <button type="submit"><b>Sign Up</b></button>
@@ -82,6 +82,34 @@
             <a href="login.php"><button><b>Back to Login</b></button></a>
         </div>
     </div>
-    <script src="script.js"></script>
+    
+    <script>
+        document.getElementById("signup-form").addEventListener("submit", function(event) {
+            const usernameInput = document.getElementById("signup-username");
+            const emailInput = document.getElementById("signup-email");
+            const phoneInput = document.getElementById("signup-phone");
+
+            // Validate username (letters only)
+            if (!/^[A-Za-z]+$/.test(usernameInput.value)) {
+                alert("Please enter letters only for the username.");
+                event.preventDefault();
+                return;
+            }
+
+            // Validate email (must end with @gmail.com)
+            if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(emailInput.value)) {
+                alert("Please enter a valid Gmail address.");
+                event.preventDefault();
+                return;
+            }
+
+            // Validate phone number (10 digits)
+            if (!/^\d{10}$/.test(phoneInput.value)) {
+                alert("Please enter a 10-digit phone number.");
+                event.preventDefault();
+                return;
+            }
+        });
+    </script>
 </body>
 </html>
